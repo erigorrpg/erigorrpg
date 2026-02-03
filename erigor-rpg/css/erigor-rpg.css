@@ -1,0 +1,648 @@
+/* ERIGOR RPG - CSS Completo */
+
+/* === Configurações Globais === */
+.erigor-character-sheet {
+  font-family: 'Inter', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 5px; /* Espaçamento externo da ficha */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* Para empilhar logo e área rolável */
+  height: 100%;
+  width: 100%; /* Ficha externa ocupa a largura disponível */
+  /* overflow-x removido daqui */
+  overflow-y: hidden; /* Evita que a própria ficha externa tenha rolagem vertical desnecessária */
+}
+
+/* === CABEÇALHO COM LOGO === */
+.erigor-character-sheet .erigor-header-logo-container {
+  text-align: center;
+  margin-bottom: 1rem; /* Ajuste conforme necessário */
+  padding: 0.5rem 0;
+  flex-shrink: 0; /* Impede que o container do logo encolha */
+}
+
+.erigor-character-sheet .erigor-system-logo {
+  max-height: 70px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* === NOVA ÁREA ROLÁVEL INTERNA === */
+.erigor-character-sheet .erigor-scrollable-content {
+  width: 775px; /* Largura fixa para o conteúdo principal da ficha */
+  /* Para centralizar o bloco de 800px se a tela for maior: */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+  /* (Descomente as margens acima se quiser o bloco centralizado horizontalmente) */
+
+  overflow-x: auto; /* BARRA DE ROLAGEM HORIZONTAL PARA ESTA ÁREA */
+  overflow-y: hidden; /* A rolagem vertical será tratada pelo .sheet-body */
+
+  flex-grow: 1; /* Permite que esta área ocupe o espaço vertical restante */
+  display: flex;
+  flex-direction: column; /* Para empilhar cabeçalho, abas e corpo das abas */
+}
+
+
+/* CABEÇALHO: Informações Gerais e Retrato Lado a Lado (AGORA DENTRO DE .erigor-scrollable-content) */
+.erigor-character-sheet .erigor-scrollable-content .header-layout-grid {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0rem;
+  flex-shrink: 0; /* Impede que o cabeçalho encolha verticalmente */
+}
+
+.erigor-character-sheet .erigor-scrollable-content .header-fields-container {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Funcionará dentro dos 800px */
+  gap: 0.5rem 0.75rem;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .header-portrait-container {
+  flex-basis: 160px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .portrait-area {
+  margin-top: 0;
+  width: 100%;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .sheet-actor-portrait {
+  max-width: 100%;
+  height: auto;
+  max-height: 180px;
+  border: 2px solid #000308;
+  border-radius: 0px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+
+/* === Seções e Títulos de Seção (AGORA DENTRO DE .erigor-scrollable-content) === */
+.erigor-character-sheet .erigor-scrollable-content .section-title {
+  background-color: #000308;
+  color: #e2e8f0;
+  padding: 0.4rem 0.8rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0rem;
+  margin: -0.75rem -0.75rem 0.75rem -0.75rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.erigor-character-sheet .erigor-scrollable-content .section-title span { flex-grow: 1; text-align: center; }
+.erigor-character-sheet .erigor-scrollable-content .section-title .item-create {
+  color: #a0aec0; font-size: 0.8rem; margin-left: auto;
+  background: none; border: none; cursor: pointer;
+}
+.erigor-character-sheet .erigor-scrollable-content .section-title .item-create:hover { color: #fff; }
+
+.erigor-character-sheet .erigor-scrollable-content .subsection-title {
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px dashed #cbd5e0;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .card {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  border-radius: 0rem;
+}
+.erigor-character-sheet .erigor-scrollable-content .header-layout-grid.card {
+    margin-bottom: 1rem;
+}
+
+
+/* === Campos de Input e Labels (AGORA DENTRO DE .erigor-scrollable-content) === */
+.erigor-character-sheet .erigor-scrollable-content .form-group {
+    margin-bottom: 0.5rem;
+}
+.erigor-character-sheet .erigor-scrollable-content .label-text {
+  color: #718096;
+  font-size: 0.7rem;
+  margin-bottom: 0.1rem;
+  display: block;
+  font-weight: 500;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .input-field,
+.erigor-character-sheet .erigor-scrollable-content .erigor-textarea,
+.erigor-character-sheet .erigor-scrollable-content .full-width-input {
+  background-color: #edf2f7;
+  border: 1px solid #cbd5e0;
+  color: #000308;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+}
+.erigor-character-sheet .erigor-scrollable-content .input-field { height: 26px; }
+.erigor-character-sheet .erigor-scrollable-content .erigor-textarea { min-height: 70px; resize: vertical; }
+.erigor-character-sheet .erigor-scrollable-content .full-textarea { min-height: 90px; }
+
+/* Estilos específicos para textareas que usam a classe .input-field (como os acessórios) */
+.erigor-character-sheet .erigor-scrollable-content textarea.input-field {
+  height: auto;
+  min-height: 42px;
+  max-height: 80px;
+  resize: vertical;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .input-field-sm {
+  background-color: #edf2f7;
+  border: 1px solid #cbd5e0;
+  color: #000308;
+  padding: 0.25rem;
+  border-radius: 0rem;
+  width: 3.2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  height: 22px;
+}
+.erigor-character-sheet .erigor-scrollable-content input:disabled,
+.erigor-character-sheet .erigor-scrollable-content .mod-display,
+.erigor-character-sheet .erigor-scrollable-content .energy-max {
+  background-color: #f7fafc !important;
+  color: #718096 !important;
+  border-color: #e2e8f0 !important;
+  cursor: default;
+}
+
+/* === ESTILOS PARA ABAS E LAYOUTS INTERNOS (AGORA DENTRO DE .erigor-scrollable-content) === */
+
+.erigor-character-sheet .erigor-scrollable-content .sheet-body {
+  padding: 0.5rem;
+  overflow-y: auto;   /* Rolagem vertical para o conteúdo das abas */
+  overflow-x: hidden; /* Impede rolagem horizontal duplicada */
+  flex-grow: 1;       /* Ocupa o espaço vertical restante dentro de .erigor-scrollable-content */
+}
+
+.erigor-character-sheet .erigor-scrollable-content .sheet-tabs {
+  margin: 0 0.5rem 0.5rem 0.5rem;
+  border-bottom: 1px solid #c53030;
+  flex-shrink: 0; /* Impede que as abas encolham verticalmente */
+}
+
+.erigor-character-sheet .erigor-scrollable-content .sheet-tabs .item {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .sheet-tabs .item.active {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #c53030;
+  text-shadow: none;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .tab-grid-2col,
+.tab-grid-2col {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start; /* não estica colunas */
+}
+
+.erigor-character-sheet .erigor-scrollable-content .tab-grid-2col .grid-column,
+.tab-grid-2col .grid-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* === ESTILO PARA O GRID DE HABILIDADES (2 COLUNAS) === */
+.erigor-character-sheet .erigor-scrollable-content .habilidades-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .habilidade-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .habilidade-slot .label-text {
+  font-weight: bold;
+  color: #4a5568;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  margin-bottom: 0.25rem;
+}
+
+.erigor-character-sheet .erigor-scrollable-content .habilidade-slot .erigor-textarea {
+  height: 95px;
+  width: 100%;
+  resize: vertical;
+}
+
+/* === ESTILO PARA TEXTAREA DA BIOGRAFIA SIMPLIFICADA === */
+.erigor-character-sheet .erigor-scrollable-content .biography-simple-textarea {
+    width: 100%;
+    min-height: 400px;
+    resize: vertical;
+}
+
+/* === Outros Estilos (Atributos, Combate, etc. - agora prefixados com .erigor-scrollable-content) === */
+.erigor-character-sheet .erigor-scrollable-content .attributes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
+}
+.erigor-character-sheet .erigor-scrollable-content .attribute-box {
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem;
+    background: #fdfdff;
+}
+.erigor-character-sheet .erigor-scrollable-content .attribute-name a {
+    font-weight: bold;
+    color: #c53030;
+    text-decoration: none;
+}
+.erigor-character-sheet .erigor-scrollable-content .attribute-inputs { display: flex; justify-content: center; gap: 4px; margin: 4px 0; }
+.erigor-character-sheet .erigor-scrollable-content .attribute-labels { display: flex; justify-content: center; gap: 4px; font-size: 0.6rem; color: #a0aec0; }
+.erigor-character-sheet .erigor-scrollable-content .attribute-labels span { width: 2.8rem; text-align: center; }
+
+.erigor-character-sheet .erigor-scrollable-content .combat-stats-card .subsection { margin-bottom: 0.8rem; }
+.erigor-character-sheet .erigor-scrollable-content .elemental-force-grid,
+.erigor-character-sheet .erigor-scrollable-content .resistances-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 0.2rem 0.4rem; text-align: center;
+}
+.erigor-character-sheet .erigor-scrollable-content .elemental-force-grid label,
+.erigor-character-sheet .erigor-scrollable-content .resistances-grid label { font-size: 0.6rem; color: #718096; }
+.erigor-character-sheet .erigor-scrollable-content .energies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+.erigor-character-sheet .erigor-scrollable-content .energy-item { text-align: center; }
+.erigor-character-sheet .erigor-scrollable-content .energy-inputs { display:flex; align-items:center; justify-content: center; gap: 2px; }
+.erigor-character-sheet .erigor-scrollable-content .initiative-section .subsection-title a { color: inherit; text-decoration: none; }
+.erigor-character-sheet .erigor-scrollable-content .initiative-section input.mod-display { margin: 0 auto; display: block; }
+
+.erigor-character-sheet .erigor-scrollable-content .combats-container { display: flex; flex-direction: column; gap: 0.35rem; }
+.erigor-character-sheet .erigor-scrollable-content .combat-entry { border: 1px solid #e2e8f0; padding: 0.35rem 0.5rem; border-radius: 0rem; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0 0.5rem; background-color: #f8f9fa;}
+.erigor-character-sheet .erigor-scrollable-content .combat-label a { color: #c53030; text-decoration: none; font-weight: 500; font-size: 0.75rem; }
+.erigor-character-sheet .erigor-scrollable-content .combat-fields { display: flex; align-items: center; gap: 0.15rem; justify-content: flex-end;}
+.erigor-character-sheet .erigor-scrollable-content .combat-fields input.input-field-sm { width: 2.8rem; }
+.erigor-character-sheet .erigor-scrollable-content .combat-field-labels { display: flex; grid-column: 2 / 3; justify-content: flex-end; gap: 0.15rem; font-size: 0.5rem; color: #a0aec0; margin-top: 0.1rem; }
+.erigor-character-sheet .erigor-scrollable-content .combat-field-labels span { box-sizing: border-box; width: 2.8rem; text-align: center; margin: 0 2px; }
+
+.erigor-character-sheet .erigor-scrollable-content .input-with-roll-button { display: flex; align-items: center; gap: 5px; }
+.erigor-character-sheet .erigor-scrollable-content .rollable-manual-damage { color: #c53030; cursor: pointer; font-size: 1.1em; line-height: 1; }
+.erigor-character-sheet .erigor-scrollable-content .accessories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 0.5rem; }
+.erigor-character-sheet .erigor-scrollable-content .riqueza-content { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 0.5rem; }
+.erigor-character-sheet .erigor-scrollable-content .riqueza-input { width: 100px; text-align: right; }
+.erigor-character-sheet .erigor-scrollable-content .riqueza-currency { font-weight: bold; font-size: 1.2rem; }
+
+/* Editor de texto para biografia (geral) */
+.erigor-character-sheet .erigor-scrollable-content .editor {
+    /* height: 100%; */
+    /* min-height: 200px; */
+}
+
+
+/* === ESTILOS PARA OS CARDS DE CHAT (Não precisam do prefixo .erigor-scrollable-content pois são para #chat-log) === */
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card {
+  border: 1px solid #c53030;
+  border-radius: 5px;
+  margin: 3px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  background-color: #0e0e0e; /* FUNDO DO CARD */
+  color: #f0f0f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .card-header {
+  background-color: #000308;
+  color: #e2e8f0;
+  padding: 5px 8px;
+  border-bottom: 1px solid #4a5568;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .card-content {
+  padding: 8px;
+  background-color: #141414;
+  line-height: 1.4;
+}
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .dice-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .dice-roll .dice-formula {
+  font-size: 0.9em;
+  color: #718096;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  line-height: 1.2;
+  align-self: stretch;
+  text-align: center;
+}
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .dice-roll .dice-total {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #ff4d4d;
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 5px;
+  padding-top: 5px;
+  width: 100%;
+}
+
+/* Estilos para imagens pequenas de perfil em cards de chat */
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .card-header img.small-profile-img {
+  width: 45px;
+  height: 45px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border: 1px solid #6b7280;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+/* ==========================================================
+   ERIGOR RPG — CHAT CARD (VISUAL FINAL)
+   Apenas CSS | Seguro | Reversível
+   ========================================================== */
+
+/* CARD BASE */
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card {
+  background: linear-gradient(180deg, #111 0%, #080808 100%);
+  border: 1px solid #c53030;
+  border-radius: 6px;
+  margin: 4px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* HOVER SUAVE */
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.8);
+}
+
+/* CABEÇALHO */
+.erigor-rpg.chat-card .card-header {
+  background-color: #000308;
+  color: #e2e8f0;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* CONTEÚDO */
+.erigor-rpg.chat-card .card-content {
+  padding: 10px;
+  background-color: #141414;
+}
+
+/* ÁREA DOS DADOS */
+.erigor-rpg.chat-card .dice-roll {
+  text-align: center;
+}
+
+/* TOTAL (NÚMERO GRANDE) */
+.erigor-rpg.chat-card .dice-roll .dice-total {
+  font-size: 1.7em;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin-top: 6px;
+  padding-top: 6px;
+  letter-spacing: 1px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* TOOLTIP DOS DADOS */
+.erigor-rpg.chat-card .dice-tooltip {
+  margin-top: 6px;
+  transform: scale(0.9);
+  opacity: 0.9;
+}
+
+
+
+/* ESCONDER TEXTO DE FÓRMULA / SUBTOTAL DO TOOLTIP */
+.erigor-rpg.chat-card .dice-tooltip .part-formula,
+.erigor-rpg.chat-card .dice-tooltip .part-total {
+  display: none;
+}
+
+/* BOTÃO DE DANO */
+.erigor-rpg.chat-card .card-buttons button {
+  background: #7a1a1a;
+  border: 1px solid #c53030;
+  color: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.erigor-rpg.chat-card .card-buttons button:hover {
+  background: #a61f1f;
+}
+
+/* SEPARAÇÃO ENTRE CARDS */
+body #chat-log .chat-message {
+  margin-bottom: 6px;
+}
+
+
+/* Ajusta a coluna direita para ocupar mais espaço */
+.tab-grid-2col .grid-column:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Faz as cards ocuparem o espaço disponível */
+.tab-grid-2col .card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Garante que o conteúdo interno estique */
+.combat-stats-card {
+  height: 100%;
+}
+
+/* Opcional: Aumenta um pouco a largura da ficha */
+.erigor-character-sheet {
+  width: 950px !important; /* Aumenta de 850 para 950 */
+}
+
+/* ============================= */
+/* COMBAT TRACKER — TURNO ATUAL */
+/* ============================= */
+
+/* Linha inteira do combatente ativo */
+#combat-tracker .combatant.active {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 170, 255, 0.35),
+    rgba(0, 0, 0, 0)
+  ) !important;
+  border-left: 6px solid #00aaff !important;
+  box-shadow: inset 0 0 12px rgba(0, 170, 255, 0.6);
+}
+
+/* Nome do combatente ativo */
+#combat-tracker .combatant.active .name {
+  font-weight: 800;
+  color: #e6f7ff;
+  text-shadow: 0 0 6px rgba(0, 170, 255, 0.8);
+}
+
+/* Token do combatente ativo */
+#combat-tracker .combatant.active img {
+  border: 3px solid #00aaff;
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.9);
+}
+
+/* Número da iniciativa do turno atual */
+#combat-tracker .combatant.active .initiative {
+  background: #00aaff;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+/* Ícones do combatente ativo */
+#combat-tracker .combatant.active .combatant-controls i {
+  color: #aee7ff;
+}
+
+#combat-tracker .combatant.active.enemy {
+  border-left-color: #ff4444;
+  box-shadow: inset 0 0 12px rgba(255, 68, 68, 0.7);
+}
+
+/* CABEÇALHO DA HABILIDADE (título + botão) */
+.habilidade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    width: 100%;
+    padding: 0 4px; /* Pequeno espaçamento interno */
+}
+
+/* BOTÃO DE ENVIAR AO CHAT */
+.send-to-chat-btn {
+    background: rgba(30, 30, 30, 0.8);   /* Fundo escuro sutil */
+    border: 1px solid #ff6400;           /* Borda laranja */
+    color: #ff6400;                      /* Ícone laranja */
+    font-size: 1em;                      /* Tamanho normal */
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;                  /* Bolinha perfeita */
+    transition: all 0.2s ease;
+    flex-shrink: 0;                      /* Não encolhe no grid */
+}
+
+/* Hover bonito */
+.send-to-chat-btn:hover {
+    background: #ff6400;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(255, 100, 0, 0.6);
+}
+
+/* Remove qualquer grade ou padding extra do ícone */
+.send-to-chat-btn i {
+    margin: 0;
+    pointer-events: none;
+}
+
+/* Remove espaço preto do lado - ficha ocupa toda a largura disponível */
+.erigor-character-sheet {
+  width: 100% !important;           /* Ocupa 100% da janela */
+  max-width: 800px;                /* Limite máximo para não ficar gigante em telas grandes */
+  margin: 0 auto;                   /* Centraliza horizontalmente */
+  padding: 0 10px;                  /* Pequeno espaçamento nas bordas */
+  box-sizing: border-box;           /* Garante que padding não aumente largura */
+}
+
+/* Ajusta o conteúdo rolável para ocupar o espaço */
+.erigor-scrollable-content {
+  width: 100% !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Aba Equipamento (onde o espaço aparece mais) */
+.tab.equipamento .tab-grid-2col {
+  grid-template-columns: 1fr 1fr;   /* Mantém duas colunas */
+  gap: 1.5rem;                      /* Mais espaço entre colunas */
+  width: 100%;
+}
+
+/* Cards dentro da aba Equipamento ocupam o espaço */
+.tab.equipamento .card {
+  flex: 1;
+  min-width: 0;
+}
+
+.erigor-header-logo-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8));
+}
+
+.erigor-system-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cores para sucesso/falha que estavam no <style> do attack-roll-card */
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .critical-success { color: green; }
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .critical-failure { color: red; }
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .success { color: green; }
+body #chat-log .chat-message .message-content .erigor-rpg.chat-card .failure { color: red; }

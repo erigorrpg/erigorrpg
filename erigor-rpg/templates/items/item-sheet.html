@@ -1,0 +1,292 @@
+<form class="{{cssClass}} erigor-character-sheet erigor-item-sheet flexcol" autocomplete="off">
+    <header class="sheet-header item-header card">
+        <img class="profile-img item-img-large" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="header-fields">
+            <h1 class="charname item-name">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Nome do Item"/>
+            </h1>
+            <div class="grid grid-3col">
+                <div class="form-group">
+                    <label class="label-text">{{localize "ERI-GOR.Label.TipoGeral"}}</label>
+                    <select name="type" class="input-field">
+                        {{selectOptions itemTypesOptions selected=item.type localize=true}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="label-text">{{localize "ERI-GOR.Label.SubTipo"}}</label>
+                    <input type="text" name="system.subTipo" value="{{system.subTipo}}" class="input-field" placeholder="Ex: Espada Curta, Poção de Cura"/>
+                </div>
+                <div class="form-group">
+                    <label class="label-text">{{localize "ERI-GOR.Label.Raridade"}}</label>
+                    <input type="text" name="system.raridade" value="{{system.raridade}}" class="input-field" placeholder="Comum, Lendário, etc."/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item active" data-tab="description">{{localize "ERI-GOR.Tab.Descricao"}}</a>
+        <a class="item" data-tab="details">{{localize "ERI-GOR.Tab.Detalhes"}}</a>
+        {{#if (or (eq item.type "arma") (eq item.type "armadura") (eq item.type "escudo"))}}
+        <a class="item" data-tab="combat">{{localize "ERI-GOR.Tab.Combate"}}</a>
+        {{/if}}
+        {{#if (or (eq item.type "consumivel") (eq item.type "runa") (eq item.type "itemMagico") (eq item.type "municao"))}}
+        <a class="item" data-tab="effects">{{localize "ERI-GOR.Tab.EfeitosMagia"}}</a>
+        {{/if}}
+    </nav>
+
+    <section class="sheet-body">
+        <div class="tab description active" data-group="primary" data-tab="description">
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.DescricaoGeral"}}</span></h3>
+                {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+            </div>
+             <div class="card">
+                <h3 class="section-title"><span>{{localize "ERI-GOR.Label.NotasJogador"}}</span></h3>
+                {{editor system.notes target="system.notes" button=true owner=owner editable=editable}}
+            </div>
+        </div>
+
+        <div class="tab details" data-group="primary" data-tab="details">
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.PropriedadesFisicas"}}</span></h3>
+                <div class="header-info-grid">
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Preco"}} (G)</label>
+                        <input type="number" name="system.preco" value="{{system.preco}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Peso"}} (kg)</label>
+                        <input type="number" name="system.peso" value="{{system.peso}}" data-dtype="Number" class="input-field-sm" style="width:100%;" step="0.1"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Quantidade"}}</label>
+                        <input type="number" name="system.quantidade" value="{{system.quantidade}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                     <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Durabilidade"}}</label>
+                        <div class="attribute-inputs">
+                            <input type="number" name="system.durabilidade.valor" value="{{system.durabilidade.valor}}" data-dtype="Number" class="input-field-sm" aria-label="Durabilidade Atual">
+                            <span class="energy-sep">/</span>
+                            <input type="number" name="system.durabilidade.max" value="{{system.durabilidade.max}}" data-dtype="Number" class="input-field-sm" aria-label="Durabilidade Máxima">
+                        </div>
+                    </div>
+                     <div class="form-group full-width">
+                        <label class="label-text">{{localize "ERI-GOR.Label.EfeitosEspeciais"}}</label>
+                        <textarea name="system.efeitosEspeciais" class="erigor-textarea" rows="3">{{system.efeitosEspeciais}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            {{#if (eq item.type "acessorio")}}
+            <div class="card">
+                <h3 class="section-title"><span>{{localize "ERI-GOR.Label.DetalhesAcessorio"}}</span></h3>
+                <div class="form-group">
+                    <label class="label-text">{{localize "ERI-GOR.Label.SlotEquipamento"}}</label>
+                    <select name="system.slotEquipamento" class="input-field">
+                        {{selectOptions slotsAcessorioOptions selected=system.slotEquipamento localize=true}}
+                    </select>
+                </div>
+            </div>
+            {{/if}}
+             {{#if (eq item.type "kit")}}
+            <div class="card">
+                <h3 class="section-title"><span>{{localize "ERI-GOR.Label.ConteudoKit"}}</span></h3>
+                <div class="form-group">
+                    <textarea name="system.conteudoKit" class="erigor-textarea" rows="4">{{system.conteudoKit}}</textarea>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+
+        {{#if (or (eq item.type "arma") (eq item.type "armadura") (eq item.type "escudo"))}}
+        <div class="tab combat" data-group="primary" data-tab="combat">
+            {{#if (eq item.type "arma")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.AtributosArma"}}</span></h3>
+                <div class="form-group">
+                    <label class="label-text">{{localize "ERI-GOR.Label.TipoDeArma"}}</label>
+                    <select name="system.tipoArma" class="input-field">
+                        {{selectOptions tiposDeArmaOptions selected=system.tipoArma localize=true}}
+                    </select>
+                </div>
+                <div class="header-info-grid">
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.FormulaDano"}}</label>
+                        <input type="text" name="system.danoFormula" value="{{system.danoFormula}}" class="input-field"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.TipoDano"}}</label>
+                        <input type="text" name="system.tipoDano" value="{{system.tipoDano}}" class="input-field"/>
+                    </div>
+                     <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Rapidez"}}</label>
+                        <input type="number" name="system.rapidez" value="{{system.rapidez}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.RequerDuasMaos"}}</label>
+                        <input type="checkbox" name="system.requerDuasMaos" {{checked system.requerDuasMaos}}/>
+                    </div>
+                </div>
+                <div class="header-info-grid" style="grid-template-columns: 1fr 1fr;">
+                     <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.AlcanceNormal"}} (m)</label>
+                        <input type="number" name="system.alcanceNormal" value="{{system.alcanceNormal}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.AlcanceLongo"}} (m)</label>
+                        <input type="number" name="system.alcanceLongo" value="{{system.alcanceLongo}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                </div>
+                <div class="form-group" style="padding: 0.75rem;">
+                    <label class="label-text">{{localize "ERI-GOR.Label.PropriedadesArma"}}</label>
+                    <textarea name="system.propriedades" class="erigor-textarea" rows="3">{{system.propriedades}}</textarea>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if (eq item.type "armadura")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.AtributosArmadura"}}</span></h3>
+                 <div class="header-info-grid">
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Protecao"}}</label>
+                        <input type="number" name="system.protecao" value="{{system.protecao}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.PenalidadeAtributo"}}</label>
+                        <input type="text" name="system.penalidadeAtributo" value="{{system.penalidadeAtributo}}" class="input-field"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Rapidez"}}</label>
+                        <input type="number" name="system.rapidez" value="{{system.rapidez}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.CategoriaArmadura"}}</label>
+                        <input type="text" name="system.categoriaArmadura" value="{{system.categoriaArmadura}}" class="input-field" placeholder="Comum, Melhorada..."/>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+
+            {{#if (eq item.type "escudo")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.AtributosEscudo"}}</span></h3>
+                <div class="header-info-grid grid grid-3col">
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Bloqueio"}}</label>
+                        <input type="number" name="system.bloqueio" value="{{system.bloqueio}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.Rapidez"}}</label>
+                        <input type="number" name="system.rapidez" value="{{system.rapidez}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.ComCravos"}}</label>
+                        <input type="checkbox" name="system.comCravos" {{checked system.comCravos}}/>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if (or (eq item.type "consumivel") (eq item.type "runa") (eq item.type "itemMagico") (eq item.type "municao"))}}
+        <div class="tab effects" data-group="primary" data-tab="effects">
+            {{#if (eq item.type "consumivel")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.DetalhesConsumivel"}}</span></h3>
+                <div class="form-group" style="padding:0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.CategoriaConsumivel"}}</label>
+                     <select name="system.categoriaConsumivel" class="input-field">
+                        {{selectOptions categoriasConsumivelOptions selected=system.categoriaConsumivel localize=true}}
+                    </select>
+                </div>
+                <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EfeitoAoConsumir"}}</label>
+                    <textarea name="system.efeitoAoConsumir" class="erigor-textarea" rows="3">{{system.efeitoAoConsumir}}</textarea>
+                </div>
+                <div class="header-info-grid grid grid-3col" style="padding:0.75rem">
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.PotenciaVeneno"}}</label>
+                        <input type="number" name="system.potenciaVeneno" value="{{system.potenciaVeneno}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.AreaEfeitoBomba"}}</label>
+                        <input type="text" name="system.areaEfeito" value="{{system.areaEfeito}}" class="input-field"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.DuracaoEfeito"}}</label>
+                        <input type="text" name="system.duracaoEfeito" value="{{system.duracaoEfeito}}" class="input-field"/>
+                    </div>
+                     <div class="form-group">
+                        <label class="label-text">{{localize "ERI-GOR.Label.UsosDisponiveis"}}</label>
+                        <input type="number" name="system.usosDisponiveis" value="{{system.usosDisponiveis}}" data-dtype="Number" class="input-field-sm" style="width:100%;"/>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{#if (eq item.type "municao")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.DetalhesMunicao"}}</span></h3>
+                <div class="form-group" style="padding:0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.TipoMunicao"}} (Ex: Flecha, Bala)</label>
+                    <input type="text" name="system.subTipo" value="{{system.subTipo}}" class="input-field"/> {{!-- Usando subTipo para tipo de munição --}}
+                </div>
+                <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EfeitoEspecialMunicao"}}</label>
+                    <textarea name="system.efeitosEspeciais" class="erigor-textarea" rows="3">{{system.efeitosEspeciais}}</textarea>
+                </div>
+            </div>
+            {{/if}}
+            {{#if (eq item.type "runa")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.DetalhesRuna"}}</span></h3>
+                 <div class="form-group" style="padding:0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EfeitoEncantamento"}}</label>
+                    <textarea name="system.efeitoEncantamento" class="erigor-textarea" rows="3">{{system.efeitoEncantamento}}</textarea>
+                </div>
+                 <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.RunasParaEncantamento"}}</label>
+                    <input type="text" name="system.runasParaEncantamento" value="{{system.runasParaEncantamento}}" class="input-field"/>
+                </div>
+                 <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EquipamentoCompativel"}}</label>
+                    <input type="text" name="system.equipamentoCompativel" value="{{system.equipamentoCompativel}}" class="input-field"/>
+                </div>
+            </div>
+            {{/if}}
+            {{#if (eq item.type "itemMagico")}}
+            <div class="card">
+                <h3 class="section-title" style="margin-top:0;"><span>{{localize "ERI-GOR.Label.PoderesItemMagico"}}</span></h3>
+                 <div class="form-group" style="padding:0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.CategoriaMagica"}} (Lendário, Artefato, Relíquia)</label>
+                    <input type="text" name="system.categoriaMagica" value="{{system.categoriaMagica}}" class="input-field"/>
+                </div>
+                <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.HabilidadeConcedida"}}</label>
+                    <input type="text" name="system.habilidadeConcedida" value="{{system.habilidadeConcedida}}" class="input-field"/>
+                </div>
+                <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EfeitosPassivos"}}</label>
+                    <textarea name="system.efeitosPassivos" class="erigor-textarea" rows="3">{{system.efeitosPassivos}}</textarea>
+                </div>
+                <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.EfeitosAtivaveis"}}</label>
+                    <textarea name="system.efeitosEspeciais" class="erigor-textarea" rows="4" placeholder="Ex: NomeAcao: Ativar Poder, Custo: 1 Ação, Descrição: Descreve o que faz.">{{system.efeitosEspeciais}}</textarea>
+                </div>
+                 <div class="form-group" style="padding:0 0.75rem 0.75rem 0.75rem">
+                    <label class="label-text">{{localize "ERI-GOR.Label.Cargas"}}</label>
+                    <div class="attribute-inputs">
+                        <input type="number" name="system.cargas.valor" value="{{system.cargas.valor}}" data-dtype="Number" class="input-field-sm" aria-label="Cargas Atuais">
+                        <span class="energy-sep">/</span>
+                        <input type="number" name="system.cargas.max" value="{{system.cargas.max}}" data-dtype="Number" class="input-field-sm" aria-label="Cargas Máximas">
+                    </div>
+                    <input type="text" name="system.cargas.recarga" value="{{system.cargas.recarga}}" class="input-field" placeholder="Como recarrega. Ex: 1d4 ao amanhecer"/>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+    </section>
+</form>

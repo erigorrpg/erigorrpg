@@ -1,0 +1,149 @@
+<form class="{{cssClass}} erigor-character-sheet" autocomplete="off">
+    {{!-- SEÇÃO DO CABEÇALHO COM LOGO --}}
+    <div class="erigor-header-logo-container">
+        <img src="systems/erigor-rpg/assets/logo-erigor.png" alt="Logo ERIGOR RPG" class="erigor-system-logo"/>
+    </div>
+
+    {{!-- CABEÇALHO COM INFORMAÇÕES E RETRATO LADO A LADO --}}
+    <div class="header-layout-grid card">
+        <div class="header-fields-container">
+            <div><label class="label-text">Nome:</label><input type="text" name="name" value="{{actor.name}}" class="input-field" placeholder="Nome do Personagem"/></div>
+            <div><label class="label-text">Jogador:</label><input type="text" name="system.jogador" value="{{system.jogador}}" class="input-field"/></div>
+            <div><label class="label-text">Idade:</label><input type="text" name="system.idade" value="{{system.idade}}" class="input-field"/></div>
+            <div><label class="label-text">Raça:</label><input type="text" name="system.race" value="{{system.race}}" class="input-field"/></div>
+            <div><label class="label-text">Classe:</label><input type="text" name="system.class" value="{{system.class}}" class="input-field"/></div>
+            <div><label class="label-text">Status:</label><input type="number" name="system.status" value="{{system.status}}" data-dtype="Number" class="input-field"/></div>
+            <div><label class="label-text">Caminho:</label><input type="text" name="system.caminho" value="{{system.caminho}}" class="input-field"/></div>
+            <div><label class="label-text">Glória:</label><input type="number" name="system.gloria" value="{{system.gloria}}" data-dtype="Number" class="input-field"/></div>
+            <div><label class="label-text">Especialização:</label><input type="text" name="system.especializacao" value="{{system.especializacao}}" class="input-field"/></div>
+            <div><label class="label-text">Reputação:</label><input type="number" name="system.reputacao" value="{{system.reputacao}}" data-dtype="Number" class="input-field"/></div>
+            <div><label class="label-text">Nível do personagem:</label><input type="number" name="system.nivel" value="{{system.nivel}}" data-dtype="Number" class="input-field"/></div>
+            <div><label class="label-text">Experiência (XP):</label><input type="number" name="system.xp" value="{{system.xp}}" data-dtype="Number" class="input-field"/></div>
+        </div>
+        <div class="header-portrait-container">
+            <div class="portrait-area">
+<br>
+                <img class="profile-img sheet-actor-portrait" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+            </div>
+        </div>
+    </div>
+
+    {{!-- NAVEGAÇÃO DAS ABAS --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item active" data-tab="principal">Principal</a>
+        <a class="item" data-tab="equipamento">Equipamento</a>
+        <a class="item" data-tab="habilidades">Habilidades</a>
+        <a class="item" data-tab="biografia">Biografia</a>
+    </nav>
+
+    {{!-- CONTEÚDO DAS ABAS --}}
+    <section class="sheet-body">
+
+        {{!-- ABA 1: PRINCIPAL --}}
+        <div class="tab principal active" data-group="primary" data-tab="principal">
+           <div class="tab-grid-2col">
+                <div class="grid-column">
+                    <div class="card attributes-card">
+                        <h2 class="section-title"><span>ATRIBUTOS</span></h2>
+                        <div class="attributes-container">
+                            {{#each system.atributos as |attr key|}}
+                            <div class="attribute-box">
+                                <label class="attribute-name"><a class="rollable-attribute" data-roll-type="attribute" data-key="{{key}}" title="{{localize 'ERI-GOR.Roll'}} {{localize (concat 'ERI-GOR.' key)}}">{{localize (concat "ERI-GOR." key)}}</a></label>
+                                <div class="attribute-inputs">
+                                    <input type="number" name="system.atributos.{{key}}.valor" value="{{attr.valor}}" data-dtype="Number" class="input-field-sm" aria-label="Nível de {{key}}">
+                                    <input type="text" value="{{numberFormat attr.mod decimals=0 sign=true}}" class="input-field-sm mod-display" aria-label="Modificador de {{key}}" disabled>
+                                </div>
+                                <div class="attribute-labels"><span>Nível</span><span>Mod.</span></div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="card pericias-card">
+                        <h2 class="section-title"><span>PERÍCIAS</span></h2>
+                        <textarea name="system.pericias" class="input-field erigor-textarea" rows="12" placeholder="Liste as perícias aqui...">{{system.pericias}}</textarea>
+                    </div>
+                </div>
+                <div class="grid-column">
+                    <div class="card combat-stats-card">
+                        <h2 class="section-title"><span>ESTATÍSTICAS DE COMBATE</span></h2>
+                        <div class="subsection"><h3 class="subsection-title">FORÇA ELEMENTAL</h3><div class="elemental-force-grid">{{#each system.forcaElemental as |value key|}}<div><label>{{localize (concat "ERI-GOR.element." key)}}</label><input type="text" name="system.forcaElemental.{{key}}" value="{{value}}" class="input-field-sm" maxlength="1"></div>{{/each}}</div></div>
+                        <div class="subsection"><h3 class="subsection-title">RESISTÊNCIAS</h3><div class="resistances-grid"><div><label>Defesa</label><input type="text" name="system.estatisticasCombate.defesa" value="{{system.estatisticasCombate.defesa}}" class="input-field-sm mod-display" disabled></div><div><label>Fortitude</label><input type="text" name="system.estatisticasCombate.fortitude" value="{{system.estatisticasCombate.fortitude}}" class="input-field-sm mod-display" disabled></div><div><label>Mente</label><input type="text" name="system.estatisticasCombate.mente" value="{{system.estatisticasCombate.mente}}" class="input-field-sm mod-display" disabled></div><div><label>Def. Espiritual</label><input type="text" name="system.estatisticasCombate.defesaEspiritual" value="{{system.estatisticasCombate.defesaEspiritual}}" class="input-field-sm mod-display" disabled></div></div></div>
+                        <div class="subsection"><h3 class="subsection-title">ENERGIAS</h3><div class="energies-grid"><div class="energy-item"><label class="label-text">Pontos de Vida</label><div class="energy-inputs"><input type="number" name="system.energias.pv.valor" value="{{system.energias.pv.valor}}" data-dtype="Number" class="input-field-sm"><span class="energy-sep">/</span><input type="number" name="system.energias.pv.max" value="{{system.energias.pv.max}}" data-dtype="Number" class="input-field-sm energy-max" disabled></div></div><div class="energy-item"><label class="label-text">Karma</label><div class="energy-inputs"><input type="number" name="system.energias.karma.valor" value="{{system.energias.karma.valor}}" data-dtype="Number" class="input-field-sm"><span class="energy-sep">/</span><input type="number" name="system.energias.karma.max" value="{{system.energias.karma.max}}" data-dtype="Number" class="input-field-sm energy-max" disabled></div></div></div></div>
+                        <div class="subsection initiative-section"><h3 class="subsection-title"><a class="rollable-initiative" data-roll-type="initiative" title="{{localize 'ERI-GOR.Roll'}} {{localize 'ERI-GOR.Label.Iniciativa'}}">{{localize "ERI-GOR.Label.Iniciativa"}}</a></h3><input type="text" name="system.estatisticasCombate.iniciativa" value="{{system.estatisticasCombate.iniciativa}}" class="input-field-sm mod-display" disabled></div>
+                        <div class="subsection"><h3 class="subsection-title">COMBATES</h3><div class="combats-container">{{#each system.combates as |combat key|}}<div class="combat-entry"><label class="combat-label"><a class="rollable-combat" data-roll-type="combat" data-key="{{key}}" title="{{localize 'ERI-GOR.Roll'}} {{localize (concat 'ERI-GOR.combat.' key)}}">{{localize (concat "ERI-GOR.combat." key)}}</a></label><div class="combat-fields"><input type="number" name="system.combates.{{key}}.nivel" value="{{combat.nivel}}" data-dtype="Number" class="input-field-sm" aria-label="Nível {{key}}"><span>+</span><input type="text" value="{{numberFormat combat.mira decimals=0 sign=true}}" class="input-field-sm mod-display" aria-label="Mira {{key}}" disabled><span>=</span><input type="text" value="{{numberFormat combat.total decimals=0 sign=true}}" class="input-field-sm mod-display" aria-label="Total {{key}}" disabled></div><div class="combat-field-labels"><span>Nível</span><span>Mira</span><span>Total</span></div></div>{{/each}}</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- ABA 2: EQUIPAMENTO --}}
+        <div class="tab equipamento" data-group="primary" data-tab="equipamento">
+            <div class="tab-grid-2col">
+                 <div class="grid-column">
+                    <div class="card equipment-manual-card">
+                        <h2 class="section-title"><span>ARMAS</span></h2>
+                        <div class="equipment-manual-entry"><h3 class="subsection-title">ARMA 1</h3><div class="form-group"><label class="label-text">Nome:</label><input type="text" name="system.equipamentosManuais.arma1.nome" value="{{system.equipamentosManuais.arma1.nome}}" class="input-field"/></div><div class="grid grid-2col" style="gap: 0.5rem;"><div class="form-group"><label class="label-text">Dano:</label><div class="input-with-roll-button"><input type="text" name="system.equipamentosManuais.arma1.dano" value="{{system.equipamentosManuais.arma1.dano}}" class="input-field-sm weapon-dano-input" style="width: calc(100% - 25px);"/><a class="rollable-manual-damage item-roll-button" data-damage-path="system.equipamentosManuais.arma1.dano" title="{{localize 'ERI-GOR.RollDamage'}}"><i class="fas fa-dice-d10"></i></a></div></div><div class="form-group"><label class="label-text">Rapidez:</label><input type="text" name="system.equipamentosManuais.arma1.rapidez" value="{{system.equipamentosManuais.arma1.rapidez}}" class="input-field-sm" style="width:100%;"/></div></div><div class="form-group"><label class="label-text">Anotações:</label><textarea name="system.equipamentosManuais.arma1.anotacoes" class="erigor-textarea notes-area" rows="2">{{system.equipamentosManuais.arma1.anotacoes}}</textarea></div></div> <hr style="margin: 0.75rem 0;">
+                        <div class="equipment-manual-entry"><h3 class="subsection-title">ARMA 2</h3><div class="form-group"><label class="label-text">Nome:</label><input type="text" name="system.equipamentosManuais.arma2.nome" value="{{system.equipamentosManuais.arma2.nome}}" class="input-field"/></div><div class="grid grid-2col" style="gap: 0.5rem;"><div class="form-group"><label class="label-text">Dano:</label><div class="input-with-roll-button"><input type="text" name="system.equipamentosManuais.arma2.dano" value="{{system.equipamentosManuais.arma2.dano}}" class="input-field-sm weapon-dano-input" style="width: calc(100% - 25px);"/><a class="rollable-manual-damage item-roll-button" data-damage-path="system.equipamentosManuais.arma2.dano" title="{{localize 'ERI-GOR.RollDamage'}}"><i class="fas fa-dice-d10"></i></a></div></div><div class="form-group"><label class="label-text">Rapidez:</label><input type="text" name="system.equipamentosManuais.arma2.rapidez" value="{{system.equipamentosManuais.arma2.rapidez}}" class="input-field-sm" style="width:100%;"/></div></div><div class="form-group"><label class="label-text">Anotações:</label><textarea name="system.equipamentosManuais.arma2.anotacoes" class="erigor-textarea notes-area" rows="2">{{system.equipamentosManuais.arma2.anotacoes}}</textarea></div></div> <hr style="margin: 0.75rem 0;">
+                        <div class="equipment-manual-entry"><h3 class="subsection-title">ARMA 3</h3><div class="form-group"><label class="label-text">Nome:</label><input type="text" name="system.equipamentosManuais.arma3.nome" value="{{system.equipamentosManuais.arma3.nome}}" class="input-field"/></div><div class="grid grid-2col" style="gap: 0.5rem;"><div class="form-group"><label class="label-text">Dano:</label><div class="input-with-roll-button"><input type="text" name="system.equipamentosManuais.arma3.dano" value="{{system.equipamentosManuais.arma3.dano}}" class="input-field-sm weapon-dano-input" style="width: calc(100% - 25px);"/><a class="rollable-manual-damage item-roll-button" data-damage-path="system.equipamentosManuais.arma3.dano" title="{{localize 'ERI-GOR.RollDamage'}}"><i class="fas fa-dice-d10"></i></a></div></div><div class="form-group"><label class="label-text">Rapidez:</label><input type="text" name="system.equipamentosManuais.arma3.rapidez" value="{{system.equipamentosManuais.arma3.rapidez}}" class="input-field-sm" style="width:100%;"/></div></div><div class="form-group"><label class="label-text">Anotações:</label><textarea name="system.equipamentosManuais.arma3.anotacoes" class="erigor-textarea notes-area" rows="2">{{system.equipamentosManuais.arma3.anotacoes}}</textarea></div></div>
+                    </div>
+                 </div>
+                 <div class="grid-column">
+                    <div class="card equipment-manual-card">
+                        <h2 class="section-title"><span>PROTEÇÕES</span></h2>
+                        <div class="equipment-manual-entry"><h3 class="subsection-title">ARMADURA</h3><div class="form-group"><label class="label-text">Nome:</label><input type="text" name="system.equipamentosManuais.armadura.nome" value="{{system.equipamentosManuais.armadura.nome}}" class="input-field"/></div><div class="grid grid-2col" style="gap: 0.5rem;"><div class="form-group"><label class="label-text">Proteção:</label><input type="text" name="system.equipamentosManuais.armadura.protecao" value="{{system.equipamentosManuais.armadura.protecao}}" class="input-field-sm" style="width:100%;"/></div><div class="form-group"><label class="label-text">Rapidez:</label><input type="text" name="system.equipamentosManuais.armadura.rapidez" value="{{system.equipamentosManuais.armadura.rapidez}}" class="input-field-sm" style="width:100%;"/></div></div><div class="form-group"><label class="label-text">Anotações:</label><textarea name="system.equipamentosManuais.armadura.anotacoes" class="erigor-textarea notes-area" rows="2">{{system.equipamentosManuais.armadura.anotacoes}}</textarea></div></div><hr style="margin: 0.75rem 0;"><div class="equipment-manual-entry"><h3 class="subsection-title">ESCUDO</h3><div class="form-group"><label class="label-text">Nome:</label><input type="text" name="system.equipamentosManuais.escudo.nome" value="{{system.equipamentosManuais.escudo.nome}}" class="input-field"/></div><div class="grid grid-2col" style="gap: 0.5rem;"><div class="form-group"><label class="label-text">Bloqueio:</label><input type="text" name="system.equipamentosManuais.escudo.bloqueio" value="{{system.equipamentosManuais.escudo.bloqueio}}" class="input-field-sm" style="width:100%;"/></div><div class="form-group"><label class="label-text">Rapidez:</label><input type="text" name="system.equipamentosManuais.escudo.rapidez" value="{{system.equipamentosManuais.escudo.rapidez}}" class="input-field-sm" style="width:100%;"/></div></div><div class="form-group"><label class="label-text">Anotações:</label><textarea name="system.equipamentosManuais.escudo.anotacoes" class="erigor-textarea notes-area" rows="2">{{system.equipamentosManuais.escudo.anotacoes}}</textarea></div></div>
+                    </div>
+                 </div>
+            </div>
+            <div class="card accessories-card"><h2 class="section-title"><span>ACESSÓRIOS</span></h2><div class="accessories-grid">
+                <div><label class="label-text">Óculos/Máscara:</label><textarea name="system.acessorios.oculosMascara" class="input-field" rows="2">{{system.acessorios.oculosMascara}}</textarea></div>
+                <div><label class="label-text">Capacete:</label><textarea name="system.acessorios.capacete" class="input-field" rows="2">{{system.acessorios.capacete}}</textarea></div>
+                <div><label class="label-text">Anel/Brinco 1:</label><textarea name="system.acessorios.anelBrinco1" class="input-field" rows="2">{{system.acessorios.anelBrinco1}}</textarea></div>
+                <div><label class="label-text">Ombreira:</label><textarea name="system.acessorios.ombreira" class="input-field" rows="2">{{system.acessorios.ombreira}}</textarea></div>
+                <div><label class="label-text">Anel/Brinco 2:</label><textarea name="system.acessorios.anelBrinco2" class="input-field" rows="2">{{system.acessorios.anelBrinco2}}</textarea></div>
+                <div><label class="label-text">Capa:</label><textarea name="system.acessorios.capa" class="input-field" rows="2">{{system.acessorios.capa}}</textarea></div>
+                <div><label class="label-text">Amuleto:</label><textarea name="system.acessorios.amuleto" class="input-field" rows="2">{{system.acessorios.amuleto}}</textarea></div>
+                <div><label class="label-text">Cinto:</label><textarea name="system.acessorios.cinto" class="input-field" rows="2">{{system.acessorios.cinto}}</textarea></div>
+                <div><label class="label-text">Braceletes/Luvas:</label><textarea name="system.acessorios.braceletesLuvas" class="input-field" rows="2">{{system.acessorios.braceletesLuvas}}</textarea></div>
+                <div><label class="label-text">Botas:</label><textarea name="system.acessorios.botas" class="input-field" rows="2">{{system.acessorios.botas}}</textarea></div>
+            </div></div>
+            <div class="card inventory-card"><h2 class="section-title"><span>INVENTÁRIO (OUTROS ITENS)</span></h2><textarea name="system.equipamentosManuais.outrosEquipamentos" class="input-field erigor-textarea full-textarea" placeholder="Liste outros itens, equipamentos de aventura, poções, etc. aqui...">{{system.equipamentosManuais.outrosEquipamentos}}</textarea></div>
+            <div class="card riqueza-card"><h2 class="section-title"><span>RIQUEZA</span></h2><div class="riqueza-content"><input type="number" name="system.riqueza.g" value="{{system.riqueza.g}}" data-dtype="Number" class="input-field riqueza-input" placeholder="Quantidade"><span class="riqueza-currency">G</span></div></div>
+        </div>
+
+        {{!-- ABA 3: HABILIDADES --}}
+        <div class="tab habilidades" data-group="primary" data-tab="habilidades">
+            <div class="card habilidades-card">
+                <div class="section-title"><span>HABILIDADES</span></div>
+                <div class="habilidades-grid-2col">
+                    <div class="habilidade-coluna">
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 1</label><textarea name="system.habilidadesManuais.h1" class="erigor-textarea">{{system.habilidadesManuais.h1}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 2</label><textarea name="system.habilidadesManuais.h2" class="erigor-textarea">{{system.habilidadesManuais.h2}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 3</label><textarea name="system.habilidadesManuais.h3" class="erigor-textarea">{{system.habilidadesManuais.h3}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 4</label><textarea name="system.habilidadesManuais.h4" class="erigor-textarea">{{system.habilidadesManuais.h4}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 5</label><textarea name="system.habilidadesManuais.h5" class="erigor-textarea">{{system.habilidadesManuais.h5}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 6</label><textarea name="system.habilidadesManuais.h6" class="erigor-textarea">{{system.habilidadesManuais.h6}}</textarea></div>
+                    </div>
+                    <div class="habilidade-coluna">
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 7</label><textarea name="system.habilidadesManuais.h7" class="erigor-textarea">{{system.habilidadesManuais.h7}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 8</label><textarea name="system.habilidadesManuais.h8" class="erigor-textarea">{{system.habilidadesManuais.h8}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 9</label><textarea name="system.habilidadesManuais.h9" class="erigor-textarea">{{system.habilidadesManuais.h9}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 10</label><textarea name="system.habilidadesManuais.h10" class="erigor-textarea">{{system.habilidadesManuais.h10}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 11</label><textarea name="system.habilidadesManuais.h11" class="erigor-textarea">{{system.habilidadesManuais.h11}}</textarea></div>
+                        <div class="habilidade-slot"><label class="label-text">HABILIDADE 12</label><textarea name="system.habilidadesManuais.h12" class="erigor-textarea">{{system.habilidadesManuais.h12}}</textarea></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- ABA 4: BIOGRAFIA (SIMPLIFICADA PARA TEXTAREA) --}}
+        <div class="tab biografia" data-group="primary" data-tab="biografia">
+            <div class="card">
+                <h2 class="section-title"><span>BIOGRAFIA / HISTÓRIA</span></h2>
+                <div style="padding: 0.75rem;">
+                    <textarea name="system.biography" class="erigor-textarea biography-simple-textarea" rows="25" placeholder="Escreva a biografia, história e características do personagem aqui...">{{system.biography}}</textarea>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</form>

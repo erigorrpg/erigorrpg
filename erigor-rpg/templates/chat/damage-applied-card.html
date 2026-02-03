@@ -1,0 +1,27 @@
+<div class="erigor-rpg chat-card message-card">
+    <div class="card-header">
+        <span class="chat-header-title">{{cardTitle}}</span>
+    </div>
+    <div class="card-content">
+        <div class="damage-info">
+            <p><strong>{{targetName}}</strong> sofreu <strong>{{damageAppliedValue}}</strong> de dano.</p>
+            
+            {{#if wasAbsorbed}}
+            <p style="font-size: 0.9em; color: #666; margin-top: 3px;">
+                (Proteção {{protectionValue}} absorveu {{damageAbsorbedValue}})
+            </p>
+            {{/if}}
+
+            {{#if isBrute}}
+            <p style="font-size: 0.9em; color: #943d3d; margin-top: 3px;">
+                (Dano Bruto)
+            </p>
+            {{/if}}
+        </div>
+    </div>
+    {{#if attackerName}}
+    <div class="card-footer" style="font-size: 0.8em; text-align: right; padding-top: 3px; border-top: 1px solid #ccc; margin-top: 5px;">
+        <span>Fonte: {{attackerName}}</span>
+    </div>
+    {{/if}}
+</div>

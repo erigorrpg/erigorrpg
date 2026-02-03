@@ -1,0 +1,22 @@
+<div class="erigor-rpg chat-card">
+    <div class="card-header">
+        <span class="chat-header-title">{{title}}</span>
+    </div>
+    <div class="card-content">
+        <div class="dice-roll">
+            {{!-- <div class="dice-formula">{{formula}}</div> --}}
+            {{{tooltip}}}
+            <h4 class="dice-total">{{total}}</h4>
+        </div>
+    </div>
+
+    {{! --- INÍCIO DA SEÇÃO DO BOTÃO DE DANO --- }}
+    {{#if isDamageRoll}}
+    <div class="card-buttons" style="margin-top: 5px; text-align: center;">
+        <button type="button" class="apply-damage-button" data-damage-value="{{total}}" {{#if actorId}}data-actor-id="{{actorId}}"{{/if}}>
+            <i class="fas fa-tint"></i> Aplicar Dano
+        </button>
+    </div>
+    {{/if}}
+    {{! --- FIM DA SEÇÃO DO BOTÃO DE DANO --- }}
+</div>

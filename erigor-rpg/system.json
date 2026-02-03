@@ -1,0 +1,43 @@
+{
+  "name": "erigor-rpg",
+  "title": "ERI-GOR RPG - A Guerra dos Elementos",
+  "description": "Sistema de RPG ERI-GOR para Foundry VTT.",
+  "version": "1.0.1",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "FULGORE",
+      "email": "erigorrpg@gmail.com",
+      "url": ""
+    }
+  ],
+  "esmodules": [
+    "javascript/erigor-rpg.js"
+  ],
+  "styles": [
+    "css/erigor-rpg.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",  
+      "path": "lang/pt-BR.json"      
+    }
+  ],
+  "packs": [],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "energias.pv",
+  "secondaryTokenAttribute": "energias.karma",
+  "templateVersion": 2,
+  "initiative": "1d10 + @estatisticasCombate.iniciativa",
+  "socket": false
+}

@@ -1,0 +1,44 @@
+<div class="erigor-rpg chat-card attack-roll-card">
+    <div class="card-header">
+        <img src="{{attackerImg}}" title="{{attackerName}}" class="profile-img small-profile-img"/>
+        <span class="chat-header-title">{{title}}</span>
+    </div>
+    <div class="card-content">
+        {{#if targetName}}
+            <div class="target-info" style="margin-bottom: 5px; text-align: center;">
+                <span>Alvo: <strong>{{targetName}}</strong> ({{targetDefenseName}}: {{targetDefenseValue}})</span>
+            </div>
+        {{/if}}
+        <div class="dice-roll">
+            <div class="dice-formula">{{rollFormula}}</div>
+            {{{rollTooltip}}}
+            <h4 class="dice-total {{#if isCriticalSuccess}}critical-success{{/if}}{{#if isCriticalFailure}}critical-failure{{/if}}">{{rollTotal}}</h4>
+        </div>
+        <h3 class="roll-result {{#if success}}success{{else}}failure{{/if}}" style="text-align: center; margin-top: 5px;">
+            {{#if success}}
+                <i class="fas fa-check-circle"></i> Acerto!
+            {{else}}
+                <i class="fas fa-times-circle"></i> Erro!
+            {{/if}}
+        </h3>
+    </div>
+    {{#if success}}
+    <div class="card-buttons" style="margin-top: 5px; text-align: center;">
+        <button type="button" class="rollable-damage erigor-dice-button" 
+                data-roll="{{damageFormula}}" 
+                data-label="Dano de {{weaponName}}"
+                data-actor-id="{{attackerActorId}}"
+                data-damage-type="{{damageType}}">
+            <i class="fas fa-tint"></i> Rolar Dano
+        </button>
+    </div>
+    {{/if}}
+</div>
+<style>
+.profile-img { border-radius: 5px; border: 1px solid #585858; }
+.small-profile-img { width: 24px; height: 24px; margin-right: 5px; vertical-align: middle; }
+.critical-success { color: green; }
+.critical-failure { color: red; }
+.success { color: green; }
+.failure { color: red; }
+</style>

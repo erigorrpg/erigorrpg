@@ -1,0 +1,107 @@
+{
+  "Actor": {
+    "types": ["personagem", "npc", "tropa"],
+    "personagem": {
+      "biography": "",
+      "nivel": 1, "xp": 0, "status": 0, "gloria": 0, "reputacao": 0,
+      "idade": "", "caminho": "", "especializacao": "", "jogador": "", "race": "", "class": "",
+      "riqueza": { "g": 750 },
+      "atributos": {
+        "porte": { "valor": 5, "mod": 0 }, "destreza": { "valor": 5, "mod": 0 },
+        "intelecto": { "valor": 5, "mod": 0 }, "espirito": { "valor": 5, "mod": 0 }
+      },
+      "energias": {
+        "pv": { "valor": 50, "max": 50 }, "karma": { "valor": 0, "max": 50 }
+      },
+      "estatisticasCombate": {
+        "iniciativa": 0, "defesa": 10, "fortitude": 10, "mente": 10, "defesaEspiritual": 10, "protecaoFinal": 0
+      },
+      "forcaElemental": {
+      "fogo": "", "agua": "", "vento": "", "terra": "", "luz": "", "trevas": "", "raio": ""
+      },
+      "combates": {
+        "armasBrancas": { "nivel": 1, "mira": 0, "total": 1 }, "distancia": { "nivel": 1, "mira": 0, "total": 1 },
+        "desarmado": { "nivel": 1, "mira": 0, "total": 1 }, "espiritual": { "nivel": 1, "mira": 0, "total": 1 }
+      },
+      "pericias": "", 
+      "equipamentosManuais": {
+        "arma1": {"nome": "", "dano": "", "rapidez": "", "anotacoes": ""},
+        "arma2": {"nome": "", "dano": "", "rapidez": "", "anotacoes": ""},
+        "arma3": {"nome": "", "dano": "", "rapidez": "", "anotacoes": ""},
+        "armadura": {"nome": "", "protecao": 0, "rapidez": "", "anotacoes": ""},
+        "escudo": {"nome": "", "bloqueio": 0, "rapidez": "", "anotacoes": ""},
+        "outrosEquipamentos": ""
+      },
+      "inventario": {"descricao": ""}, 
+      "acessorios": {
+        "oculosMascara": "", "capacete": "", "anelBrinco1": "", "ombreira": "",
+        "anelBrinco2": "", "capa": "", "amuleto": "", "cinto": "",
+        "braceletesLuvas": "", "botas": ""
+      },
+      "habilidadesManuais": {
+        "h1": "", "h2": "", "h3": "", "h4": "", "h5": "", "h6": "",
+        "h7": "", "h8": "", "h9": "", "h10": "", "h11": "", "h12": ""
+      }
+    },
+    "npc": {
+      "biography": "", 
+      "nivel": 1,
+      "atributos": {
+        "porte": { "valor": 5, "mod": 0 }, "destreza": { "valor": 5, "mod": 0 },
+        "intelecto": { "valor": 5, "mod": 0 }, "espirito": { "valor": 5, "mod": 0 }
+      },
+      "energias": {
+        "pv": { "valor": 50, "max": 50 }, "karma": { "valor": 0, "max": 0 }
+      },
+      "estatisticasCombate": {
+        "iniciativa": 0, "defesa": 10, "fortitude": 10, "mente": 10, "defesaEspiritual": 10, "protecaoFinal": 0
+     },
+      "forcaElemental": {
+      "fogo": "", "agua": "", "vento": "", "terra": "", "luz": "", "trevas": "", "raio": ""
+     },
+      "combates": {
+        "armasBrancas": { "nivel": 1, "mira": 0, "total": 1 }, "distancia": { "nivel": 1, "mira": 0, "total": 1 },
+        "desarmado": { "nivel": 1, "mira": 0, "total": 1 }, "espiritual": { "nivel": 1, "mira": 0, "total": 1 }
+      },
+      "pv": { "valor": 10, "max": 10 }, "defesaNpc": 10, "movimento": 6,
+      "ataques": "", "habilidadesNpc": "", "equipamento": "", "tesouroNotas": "",
+      "fracoContra": "", "forteContra": "", "descricao": ""
+    }
+  },
+  "Item": {
+    "types": ["arma", "armadura", "escudo", "acessorio", "consumivel", "municao", "runa", "itemMagico", "kit", "ferramenta", "itemGeral", "habilidade", "pericia", "qualidade", "defeito", "antecedente", "veiculo", "embarcacao"],
+    "templates": {
+      "base": { "descricao": "", "notas": "", "raridade": "comum", "preco": 0, "peso": 0 }
+    },
+    "arma": {
+      "templates": ["base"], "tipoArma": "branca", "formulaDano": "1d6", "tipoDano": "fisico",
+      "rapidez": 0, "duasMaos": false, "alcanceNormal": 0, "alcanceLongo": 0, "propriedades": ""
+    },
+    "armadura": { "templates": ["base"], "protecao": 0, "penalidade": 0, "categoriaArmadura": "leve" },
+    "escudo": { "templates": ["base"], "bloqueio": 0, "comCravos": false },
+    "acessorio": { "templates": ["base"], "slot": "anelBrinco", "efeitos": "" },
+    "consumivel": {
+      "templates": ["base"], "categoriaConsumivel": "pocao", "efeitoAoConsumir": "Recupera 1d10 PV.",
+      "potenciaVeneno": 0, "areaEfeito": "", "duracaoEfeito": "Instantâneo", "usosDisponiveis": 1, "quantidade": 1
+    },
+    "municao": { "templates": ["base"], "tipoParaArma": "arco", "quantidade": 10 },
+    "runa": {
+      "templates": ["base"], "tipoElementoRuna": "Fogo", "efeitoEncantamento": "+1 Porte",
+      "runasParaEncantamento": "1 Runa do Fogo", "equipamentoCompativel": "Anéis/Brincos"
+    },
+    "itemMagico": {
+      "templates": ["base"], "categoriaMagica": "Lendario", "habilidadeConcedida": "",
+      "efeitosPassivos": "", "efeitosAtivaveis": [], "cargas": { "valor": 0, "max": 0, "recarga": "" }
+    },
+    "kit": { "templates": ["base"], "conteudoKit": "" },
+    "ferramenta": { "templates": ["base"] },
+    "itemGeral": { "templates": ["base"], "quantidade": 1 },
+    "habilidade": { "templates": ["base"], "custo": "", "tempoConjuracao": "", "alcanceHabilidade": "", "duracaoHabilidade": "", "alvoHabilidade": "", "tipoAcao": "ataque", "resistenciaTestada": "defesa" },
+    "pericia": { "templates": ["base"], "atributoRelacionado": "intelecto", "graduacao": 0 },
+    "qualidade": { "templates": ["base"] },
+    "defeito": { "templates": ["base"] },
+    "antecedente": { "templates": ["base"] },
+    "veiculo": { "templates": ["base"], "capacidadePessoas": 2, "deslocamentoMapa": 10, "tripulacaoNecessaria": 1, "armamentosVeiculo": "" },
+    "embarcacao": { "templates": ["base"], "capacidadePessoas": 4, "deslocamentoMapa": 5, "tripulacaoNecessaria": 2, "armamentosEmbarcacao": "" }
+  }
+}
